@@ -31,11 +31,19 @@ const Login = () => {
 
   const handleSubmit = async (values: InitialValues) => {
     const { username, password } = values;
-    const user = await login(username, password);
-    if (!user) return;
-    localStorage.setItem('token', user.accessToken);
-    navigate.push('/products');
-    return user;
+    try {
+      const user = await login(username, password);
+
+      if (user && user.accessToken) {
+        localStorage.setItem('token', user.accessToken);
+        navigate.push('/products');
+        return user;
+      } else {
+        return alert("Ім'я чи пароль не вірні");
+      }
+    } catch (error) {
+      console.error('Помилка під час входу:', error);
+    }
   };
 
   return (

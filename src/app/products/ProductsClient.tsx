@@ -36,6 +36,9 @@ const ProductsClient = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
+      if (!token) {
+        navigate.push('/login');
+      }
       let currentToken = token;
       setError(false);
       if (!currentToken) {
