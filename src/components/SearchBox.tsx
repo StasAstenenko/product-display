@@ -3,29 +3,36 @@
 import { debounce, IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
-interface SearchBoxProps {
-  onSearch: (query: string) => void;
-}
-
-const SearchBox = ({ onSearch }: SearchBoxProps) => {
+const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleSearch = () => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    if (searchTerm) {
+      newSearchParams.set('q', searchTerm);
+      newSearchParams.set('page', '1');
+    } else {
+      newSearchParams.delete('q');
+    }
+    router.push(`/products?${newSearchParams.toString()}`);
+  };
 
   const debouncedSearch = useCallback(
-    debounce((value: string) => {
-      onSearch(value);
+    debounce(() => {
+      handleSearch();
     }, 500),
-    [onSearch]
+    [handleSearch]
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-    debouncedSearch(value);
-  };
-
-  const handleSearch = () => {
-    onSearch(searchTerm);
+    debouncedSearch();
   };
 
   return (
