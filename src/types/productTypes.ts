@@ -5,3 +5,10 @@ export interface GetProduct {
   brand: string;
   images: [string];
 }
+
+export interface GetProducts {
+  products: GetProduct[];
+  total: number;
+  skip: number;
+  limit: number;
+}

@@ -1,16 +1,9 @@
-import { GetProduct } from '@/types/productTypes';
+import { GetProduct, GetProducts } from '@/types/productTypes';
 import axios from 'axios';
 
 interface GetProductsParams {
   limit?: number;
   skip?: number;
-}
-
-interface GetProducts {
-  products: GetProduct[];
-  total: number;
-  skip: number;
-  limit: number;
 }
 
 export const apiGetProducts = async ({

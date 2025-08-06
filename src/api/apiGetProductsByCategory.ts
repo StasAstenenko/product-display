@@ -1,9 +1,5 @@
-import { GetProduct } from '@/types/productTypes';
+import { GetProducts } from '@/types/productTypes';
 import axios from 'axios';
-
-interface GetProducts {
-  products: GetProduct[];
-}
 
 export const apiGetProductsByCategory = async (
   category: string
