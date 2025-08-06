@@ -1,3 +1,5 @@
+'use client';
+
 import { apiGetCategories, Category } from '@/api/apiGetCategories';
 import {
   Box,
