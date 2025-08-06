@@ -1,16 +1,9 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import ProductsClient from './ProductsClient';
 
-const ProductsClient = dynamic(() => import('./ProductsClient'), {
-  ssr: false,
-});
+export const dynamic = 'force-dynamic';
 
 const Products = () => {
-  return (
-    <Suspense fallback={<div>Завантаження...</div>}>
-      <ProductsClient />
-    </Suspense>
-  );
+  return <ProductsClient />;
 };
 
 export default Products;
